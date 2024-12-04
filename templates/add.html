@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Booking</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <style>
+        .room-type-buttons button {
+            margin-right: 10px;
+        }
+        .room-category {
+            margin-bottom: 15px;
+        }
+        .room-type-buttons button.active {
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1>Add New Booking</h1>
+    <form action="{{ url_for('add') }}" method="POST">
+        <div class="mb-3">
+            <label for="customer_name" class="form-label">Customer Name</label>
+            <input type="text" class="form-control" id="customer_name" name="customer_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone_number" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+        </div>
+        <div class="mb-3">
+            <label for="check_in_date" class="form-label">Check-in Date</label>
+            <input type="date" class="form-control" id="check_in_date" name="check_in_date" required>
+        </div>
+        <div class="mb-3">
+            <label for="check_out_date" class="form-label">Check-out Date</label>
+            <input type="date" class="form-control" id="check_out_date" name="check_out_date" required>
+        </div>
+        
+        <!-- Standard Room Types -->
+        <div class="room-category">
+            <label class="form-label">Standard Room Types</label><br>
+            <div class="room-type-buttons">
+                <button type="button" class="btn btn-outline-primary" id="single-room">Single Room</button>
+                <button type="button" class="btn btn-outline-primary" id="double-room">Double Room</button>
+                <button type="button" class="btn btn-outline-primary" id="triple-room">Triple Room</button>
+                <button type="button" class="btn btn-outline-primary" id="family-room">Family Room</button>
+            </div>
+        </div>
+
+        <!-- Premium & Luxury Room Types -->
+        <div class="room-category">
+            <label class="form-label">Premium & Luxury Room Types</label><br>
+            <div class="room-type-buttons">
+                <button type="button" class="btn btn-outline-success" id="deluxe-room">Deluxe Room</button>
+                <button type="button" class="btn btn-outline-success" id="luxury-room">Luxury Room</button>
+                <button type="button" class="btn btn-outline-success" id="vip-room">VIP Room</button>
+            </div>
+        </div>
+
+        <input type="hidden" id="room_type" name="room_type">
+        
+        <button type="submit" class="btn btn-success mt-3">Submit</button>
+    </form>
+</div>
+
+<script>
+    // Room Type button selection functionality
+    document.querySelectorAll('.room-type-buttons button').forEach(button => {
+        button.addEventListener('click', function() {
+            document.querySelectorAll('.room-type-buttons button').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            document.getElementById('room_type').value = this.innerText;
+        });
+    });
+</script>
+
+</body>
+</html>
